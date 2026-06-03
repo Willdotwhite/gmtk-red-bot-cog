@@ -157,7 +157,7 @@ class JamCommands(commands.Cog):
     @app_commands.command(name="r4r", description="Print Rate 4 Rate info.")
     async def cmd_r4r(self, interaction: discord.Interaction):
         if await self._check_permissions(interaction):
-            await interaction.response.send_message("**R4R (Rate for Rate)**: WORDS GO HERE PLS", ephemeral=False)
+            await interaction.response.send_message("**R4R (Rate for Rate)**: Rate4Rate isn't allowed in the main channel - put it somewhere else pls", ephemeral=False)
 
 
 # =========================================================================

@@ -25,7 +25,7 @@ jobs:
             git pull origin main
             
             # 3. Fast-sync any changed dependencies in pyproject.toml
-            /home/redbot/.local/bin/uv pip install --python /home/redbot/venv .
+            /usr/local/bin/uv sync
             
             # 4. Restart the bot to load new code
             sudo /usr/bin/systemctl restart redbot
