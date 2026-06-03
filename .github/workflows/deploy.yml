@@ -1,0 +1,31 @@
+name: Production Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to DigitalOcean
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Execute Remote SSH Commands
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            # 1. Enter the application directory
+            cd ~/gmtk-red-bot-cog
+            
+            # 2. Pull the latest code
+            git pull origin main
+            
+            # 3. Fast-sync any changed dependencies in pyproject.toml
+            /home/redbot/.local/bin/uv pip install --python /home/redbot/venv .
+            
+            # 4. Restart the bot to load new code
+            sudo /usr/bin/systemctl restart redbot
