@@ -1,0 +1,10 @@
+[project]
+name = "gmtk-jam-bot"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "pip>=26.0.1",
+    "red-discordbot>=3.5.24",
+]
