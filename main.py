@@ -102,12 +102,13 @@ class JamCommands(commands.Cog):
     @app_commands.command(name="theme", description="Print jam theme info.")
     async def cmd_theme(self, interaction: discord.Interaction):
         if await self._check_permissions(interaction):
-            await interaction.response.send_message("## **THE THEME FOR THE GMTK GAME JAME 2026 IS...**\n# *** ??? ***\n[Link to video here!](https://www.youtube.com/watch?v=z_kAvHKPWYo&ab_channel=GameMaker%27sToolkit)", ephemeral=False)
+            await interaction.response.send_message("**The theme for the GMTK Game Jam 2026 will be revealed closer to the start of the jam! Stay tuned!", ephemeral=False)
+            # await interaction.response.send_message("## **THE THEME FOR THE GMTK GAME JAM 2026 IS...**\n# *** ??? ***\n[Link to video here!]()", ephemeral=False)
 
     @app_commands.command(name="health", description="Print health and wellness tips.")
     async def cmd_health(self, interaction: discord.Interaction):
         if await self._check_permissions(interaction):
-            await interaction.response.send_message("We strongly recommend you take care of yourself during the jam! Make sure to: sleep well, take regular breaks and stay on top of eating and drinking. You make a better game when you're healthy, not when you're crunching!", ephemeral=False)
+            await interaction.response.send_message("We strongly recommend you take care of yourself during the jam! Make sure to: sleep well, take regular breaks and stay on top of eating and drinking. :apple: :cup_with_straw: You make a better game when you're healthy, not when you're crunching!", ephemeral=False)
 
     @app_commands.command(name="jamtips", description="Print useful jam tips.")
     async def cmd_jamtips(self, interaction: discord.Interaction):
@@ -137,7 +138,7 @@ class JamCommands(commands.Cog):
     @app_commands.command(name="extraextension", description="Print extra extension info.")
     async def cmd_extraextension(self, interaction: discord.Interaction):
         if await self._check_permissions(interaction):
-            await interaction.response.send_message("**To account for issues with late submissions, the jam has received an extra** ***1 hour*** **added to the original submission time. The final time is at <t:1754244000:t> <t:1754244000:R>!**\n# This is not time for you to add extra features or bugfix. This is to help those who had slow builds or issues with submitting to itch.io get their games in.\n**If you have successfully submitted your game, congratulations! We recommend you use this time to relax, you made it!**", ephemeral=False)
+            await interaction.response.send_message("**To account for issues with late submissions, the jam has received an extra** ***1 hour*** **added to the original submission time. The final time is at <t:1785088800:t> <t:1785088800:D>!**\n# This is not time for you to add extra features or bugfix. This is to help those who had slow builds or issues with submitting to itch.io get their games in.\n**If you have successfully submitted your game, congratulations! We recommend you use this time to relax, you made it!**", ephemeral=False)
 
     @app_commands.command(name="gamelink", description="Print game submission link info.")
     async def cmd_gamelink(self, interaction: discord.Interaction):
@@ -152,7 +153,7 @@ class JamCommands(commands.Cog):
     @app_commands.command(name="closing", description="Print closing info.")
     async def cmd_closing(self, interaction: discord.Interaction):
         if await self._check_permissions(interaction):
-            await interaction.response.send_message("<:linkConfetti:922817487295361124> **THE GMTK Game Jam is now over! Thank you everyone for participating! The server will be closing for non-patrons <t:1754740800:R>! See you next year! ** <:linkConfetti:922817487295361124> \nOr, if you want to keep hanging around, please consider becoming a GMTK patron and gain access to the discord all year round!", ephemeral=False)
+            await interaction.response.send_message("<:linkConfetti:922817487295361124> **The GMTK Game Jam is now over! Thank you everyone for participating! The server will be closing for non-patrons August 2nd! See you next year! ** <:linkConfetti:922817487295361124> \nOr, if you want to keep hanging around, please consider becoming a GMTK patron and gain access to the discord all year round!", ephemeral=False)
 
     @app_commands.command(name="r4r", description="Print Rate 4 Rate info.")
     async def cmd_r4r(self, interaction: discord.Interaction):
