@@ -9,15 +9,10 @@ from discord.ext import commands
 # =========================================================================
 # List of Role IDs (integers) that are allowed to use these slash commands.
 ALLOWED_ROLE_IDS = [
-    1511691465544306820,
+    307496422150897671,  # Mark
+    321298669741670400,  # Server mods
+    977139806784073768,  # Chat mods
 ]
-
-# List of channel names to listen in for auto-responses
-TARGET_CHANNELS = ["general", "help", "support"]
-
-# List of keywords that will trigger the auto-response
-TARGET_KEYWORDS = ["help", "stuck", "error", "broken", "how to"]
-# =========================================================================
 
 
 class JamCommands(commands.Cog):
@@ -25,9 +20,6 @@ class JamCommands(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        # Pre-process lists to lowercase for efficient case-insensitive matching
-        self.target_channels = [c.lower() for c in TARGET_CHANNELS]
-        self.target_keywords = [k.lower() for k in TARGET_KEYWORDS]
 
     async def _check_permissions(self, interaction: discord.Interaction) -> bool:
         """Helper to enforce Role ID restrictions on slash commands."""
@@ -44,27 +36,6 @@ class JamCommands(commands.Cog):
             return False
             
         return True
-
-    # =========================================================================
-    # KEYWORD AUTO-RESPONDER
-    # =========================================================================
-    @commands.Cog.listener()
-    async def on_message(self, message: discord.Message):
-        if message.author.bot or message.guild is None:
-            return
-
-        # Check if the message is in one of the target channels
-        if message.channel.name.lower() in self.target_channels:
-            msg_lower = message.content.lower()
-            # Check if any keyword exists in the message
-            if any(keyword in msg_lower for keyword in self.target_keywords):
-                try:
-                    await message.reply(
-                        "🤖 **Auto-Response**: It looks like you might need help! Please check the pinned FAQ channel.\n*(Deleting in 10s)*",
-                        delete_after=10.0
-                    )
-                except discord.HTTPException:
-                    pass
 
     # =========================================================================
     # SLASH COMMANDS
@@ -92,12 +63,12 @@ class JamCommands(commands.Cog):
     @app_commands.command(name="hype", description="Print hype message/warning.")
     async def cmd_hype(self, interaction: discord.Interaction):
         if await self._check_permissions(interaction):
-            await interaction.response.send_message("**Please keep hype, countdowns and spam to https://discord.com/channels/248204508960653312/1270435373666926613!**", ephemeral=False)
+            await interaction.response.send_message("**Please keep hype, countdowns and spam to https://discord.com/channels/248204508960653312/1520881894328238141!**", ephemeral=False)
 
     @app_commands.command(name="teamfinder", description="Print team finding instructions.")
     async def cmd_teamfinder(self, interaction: discord.Interaction):
         if await self._check_permissions(interaction):
-            await interaction.response.send_message("**If you're looking for a team, head over to https://findyourjam.team/gmtk and https://discord.com/channels/248204508960653312/1270438349114703983 !**", ephemeral=False)
+            await interaction.response.send_message("**If you're looking for a team, head over to https://findyourjam.team/gmtk and https://discord.com/channels/248204508960653312/1520884363171201074!**", ephemeral=False)
 
     @app_commands.command(name="theme", description="Print jam theme info.")
     async def cmd_theme(self, interaction: discord.Interaction):
@@ -118,7 +89,7 @@ class JamCommands(commands.Cog):
     @app_commands.command(name="jamstart", description="Print jam countdown timer.")
     async def cmd_jamstart(self, interaction: discord.Interaction):
         if await self._check_permissions(interaction):
-            await interaction.response.send_message("**The jam starts at <t:1784739600:f> (<t:1784739600:R>).**\n**You can view the rules and sign up here: <https://itch.io/jam/gmtk-jam-2026>**\n**Please keep countdowns to https://discord.com/channels/248204508960653312/1270435373666926613!**", ephemeral=False)
+            await interaction.response.send_message("**The jam starts at <t:1784739600:f> (<t:1784739600:R>).**\n**You can view the rules and sign up here: <https://itch.io/jam/gmtk-jam-2026>**\n**Please keep countdowns to https://discord.com/channels/248204508960653312/1520881894328238141!**", ephemeral=False)
 
     @app_commands.command(name="extension", description="Print extension info.")
     async def cmd_extension(self, interaction: discord.Interaction):
@@ -138,12 +109,12 @@ class JamCommands(commands.Cog):
     @app_commands.command(name="extraextension", description="Print extra extension info.")
     async def cmd_extraextension(self, interaction: discord.Interaction):
         if await self._check_permissions(interaction):
-            await interaction.response.send_message("**To account for issues with late submissions, the jam has received an extra** ***1 hour*** **added to the original submission time. The final time is at <t:1785088800:t> <t:1785088800:D>!**\n# This is not time for you to add extra features or bugfix. This is to help those who had slow builds or issues with submitting to itch.io get their games in.\n**If you have successfully submitted your game, congratulations! We recommend you use this time to relax, you made it!**", ephemeral=False)
+            await interaction.response.send_message("**To account for issues with late submissions, the jam has received an extra** ***1 hour*** **added to the original submission time. The final time is at <t:1785088800:t> <t:1785088800:R>!**\n# This is not time for you to add extra features or bugfix. This is to help those who had slow builds or issues with submitting to itch.io get their games in.\n**If you have successfully submitted your game, congratulations! We recommend you use this time to relax, you made it!**", ephemeral=False)
 
     @app_commands.command(name="gamelink", description="Print game submission link info.")
     async def cmd_gamelink(self, interaction: discord.Interaction):
         if await self._check_permissions(interaction):
-            await interaction.response.send_message("**Please do not link your itch.io game page outside of https://discord.com/channels/248204508960653312/1270438107296043122.**\n**If someone is requesting to play your game, please DM them instead.**", ephemeral=False)
+            await interaction.response.send_message("**Please do not link your itch.io game page outside of https://discord.com/channels/248204508960653312/1520884041472282664.**\n**If someone is requesting to play your game, please DM them instead.**", ephemeral=False)
 
     @app_commands.command(name="jamover", description="Print jam end info.")
     async def cmd_jamover(self, interaction: discord.Interaction):
@@ -153,12 +124,12 @@ class JamCommands(commands.Cog):
     @app_commands.command(name="closing", description="Print closing info.")
     async def cmd_closing(self, interaction: discord.Interaction):
         if await self._check_permissions(interaction):
-            await interaction.response.send_message("<:linkConfetti:922817487295361124> **The GMTK Game Jam is now over! Thank you everyone for participating! The server will be closing for non-patrons August 2nd! See you next year! ** <:linkConfetti:922817487295361124> \nOr, if you want to keep hanging around, please consider becoming a GMTK patron and gain access to the discord all year round!", ephemeral=False)
+            await interaction.response.send_message("<:linkConfetti:922817487295361124> **THE GMTK Game Jam is now over! Thank you everyone for participating! The server will be closing for non-patrons <t:1754740800:R>! See you next year! ** <:linkConfetti:922817487295361124> \nOr, if you want to keep hanging around, please consider becoming a GMTK patron and gain access to the discord all year round!", ephemeral=False)
 
     @app_commands.command(name="r4r", description="Print Rate 4 Rate info.")
     async def cmd_r4r(self, interaction: discord.Interaction):
         if await self._check_permissions(interaction):
-            await interaction.response.send_message("**R4R (Rate for Rate)**: Rate4Rate isn't allowed in the main channel - put it somewhere else pls", ephemeral=False)
+            await interaction.response.send_message("**R4R (Rate for Rate)**: Rate4Rate isn't allowed in the main channel - check out https://discord.com/channels/248204508960653312/1520891797335707901 for info", ephemeral=False)
 
 
 # =========================================================================
