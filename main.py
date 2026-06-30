@@ -1,3 +1,4 @@
+from datetime import datetime
 import discord
 import os
 import logging
@@ -20,6 +21,9 @@ class JamCommands(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
+        self.delete_after_dt = datetime.strptime("2026-07-26 20:00:00", "%Y-%m-%d %H:%M:%S")
+        self.no_itch_channels = {"general", "hype"}
+        self.itch_triggers = {".itch.io/", "gmtk-jam-2026/rate/"}
 
     async def _check_permissions(self, interaction: discord.Interaction) -> bool:
         """Helper to enforce Role ID restrictions on slash commands."""
@@ -36,6 +40,46 @@ class JamCommands(commands.Cog):
             return False
             
         return True
+
+    # =========================================================================
+    # NO ITCH LINKS IN CHANNELS
+    # =========================================================================
+    @commands.Cog.listener()
+    async def on_message(self, message: discord.Message):
+        # Don't bother trying any of this until after the jam deadline has passed,
+        # and the inevitable wall of messages calms down
+        if datetime.now() < self.delete_after_dt:
+            return
+
+        # Fail fast
+        if message.author.bot or message.guild is None:
+            return
+
+        # Exit early if we don't care about the channels
+        if message.channel.name.lower() not in self.no_itch_channels:
+            return
+
+        msg_lower = message.content.lower()
+
+        # Use generator expression to check all triggers with as little impact as possible
+        if any(trigger in msg_lower for trigger in self.itch_triggers):
+            try:
+                # Delete offending message immediately
+                await message.delete()
+
+                # Send warning to the channel and mention the user
+                # (Can't use message.reply() if the target message no longer exists)
+                await message.channel.send(
+                    f"[BOT MESSAGE]: {message.author.mention} please don't post itch links outside of https://discord.com/channels/248204508960653312/1520884041472282664\n-# *(Deleting in 15s)*",
+                    delete_after=15.0
+                )
+            except discord.Forbidden:
+                # Bot lacks 'Manage Messages' permission in this channel
+                pass
+            except discord.HTTPException:
+                # Fallback for transient API failures
+                pass
+
 
     # =========================================================================
     # SLASH COMMANDS
