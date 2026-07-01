@@ -38,7 +38,8 @@ class JamCommands(commands.Cog):
             # Rejections are always ephemeral so chat doesn't get cluttered
             await interaction.response.send_message("❌ You do not have the required roles to use this command.", ephemeral=True)
             return False
-            
+
+        print(f"{interaction.user} is attempting to run {interaction.message} in {interaction.channel}")
         return True
 
     # =========================================================================
