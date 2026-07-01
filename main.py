@@ -22,7 +22,7 @@ class JamCommands(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.delete_after_dt = datetime.strptime("2026-07-26 20:00:00", "%Y-%m-%d %H:%M:%S")
-        self.no_itch_channels = {"general", "hype"}
+        self.no_itch_channels = {1520881758256627792, 1520881894328238141}
         self.itch_triggers = {".itch.io/", "gmtk-jam-2026/rate/"}
 
     async def _check_permissions(self, interaction: discord.Interaction) -> bool:
@@ -50,19 +50,22 @@ class JamCommands(commands.Cog):
         # and the inevitable wall of messages calms down
         # if datetime.now() < self.delete_after_dt:
         #     return
+        print(f"Message received: {message.content}")
 
         # Fail fast
         if message.author.bot or message.guild is None:
             return
 
         # Exit early if we don't care about the channels
-        if message.channel.name.lower() not in self.no_itch_channels:
+        if message.channel.id not in self.no_itch_channels:
             return
 
+        print(f"Message in channel that doesn't want links")
         msg_lower = message.content.lower()
 
         # Use generator expression to check all triggers with as little impact as possible
         if any(trigger in msg_lower for trigger in self.itch_triggers):
+            print(f"At least one trigger met; deleting messages")
             try:
                 # Delete offending message immediately
                 await message.delete()
@@ -74,10 +77,10 @@ class JamCommands(commands.Cog):
                     delete_after=15.0
                 )
             except discord.Forbidden:
-                # Bot lacks 'Manage Messages' permission in this channel
+                print(f"Bot lacks 'Manage Messages' permission in this channel")
                 pass
             except discord.HTTPException:
-                # Fallback for transient API failures
+                print(f"Unknown HTTP exception, boo")
                 pass
 
 
