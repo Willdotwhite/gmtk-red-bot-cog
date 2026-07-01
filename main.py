@@ -43,22 +43,22 @@ class JamCommands(commands.Cog):
     @app_commands.command(name="ai", description="Print AI usage rules.")
     async def cmd_ai(self, interaction: discord.Interaction):
         if await self._check_permissions(interaction):
-            await interaction.response.send_message("**AI Rules**: You _must not use generative AI_ for any part of your game or itch.io page - ideas, art, code, anything. This goes against the idea of the jam, and will lead to your game being disqualified.\nFull rules are [on the itch.io page](https://itch.io/jam/gmtk-jam-2026)\n-# This is non-negotiable - arguing for it or attacking the rule will get you muted.", ephemeral=False)
+            await interaction.response.send_message("**AI Rules**: You _must not use generative AI_ for any part of your game or itch.io page - ideas, art, code, anything. This goes against the idea of the jam, and will lead to your game being disqualified.\nFull rules are on the itch.io page: <https://itch.io/jam/gmtk-jam-2026>\n-# This is non-negotiable - arguing for it or attacking the rule will get you muted.", ephemeral=False)
 
     @app_commands.command(name="jaminfo", description="Print general jam information.")
     async def cmd_jaminfo(self, interaction: discord.Interaction):
         if await self._check_permissions(interaction):
-            await interaction.response.send_message("**Jam Info**: All information you need about the jam can be found on itch.io: https://itch.io/jam/gmtk-jam-2026", ephemeral=False)
+            await interaction.response.send_message("**Jam Info**: All information you need about the jam can be found on itch.io: <https://itch.io/jam/gmtk-jam-2026>", ephemeral=False)
 
     @app_commands.command(name="jamruling", description="Print jam rules and criteria.")
     async def cmd_jamruling(self, interaction: discord.Interaction):
         if await self._check_permissions(interaction):
-            await interaction.response.send_message("**Jam Ruling**: Discord moderators can *not* make any ruling regarding jam rules, so if you are uncertain about something we ask you to read the jam rules and use your own judgement: https://itch.io/jam/gmtk-jam-2026\nIf you’re still unsure if something is OK or not, we recommend that you err on the side of safety and refrain from doing it! <:linkThumbsUp:948315490076487742>", ephemeral=False)
+            await interaction.response.send_message("**Jam Ruling**: Discord moderators can *not* make any ruling regarding jam rules, so if you are uncertain about something we ask you to read the jam rules and use your own judgement: <https://itch.io/jam/gmtk-jam-2026>\nIf you’re still unsure if something is OK or not, we recommend that you err on the side of safety and refrain from doing it! <:linkThumbsUp:948315490076487742>", ephemeral=False)
 
     @app_commands.command(name="itch", description="Print the itch.io submission link.")
     async def cmd_itch(self, interaction: discord.Interaction):
         if await self._check_permissions(interaction):
-            await interaction.response.send_message("<:gmtk:407473480703934464> https://itch.io/jam/gmtk-jam-2026 <:gmtk:407473480703934464>", ephemeral=False)
+            await interaction.response.send_message("<:gmtk:407473480703934464> <https://itch.io/jam/gmtk-jam-2026> <:gmtk:407473480703934464>", ephemeral=False)
 
     @app_commands.command(name="hype", description="Print hype message/warning.")
     async def cmd_hype(self, interaction: discord.Interaction):
