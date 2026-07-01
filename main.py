@@ -62,7 +62,7 @@ class JamCommands(commands.Cog):
             return
 
         print(f"Message in channel that doesn't want links")
-        msg_lower = message.content.lower()
+        msg_lower = message.content.lower().replace(" ", "")
 
         # Use generator expression to check all triggers with as little impact as possible
         if any(trigger in msg_lower for trigger in self.itch_triggers):
