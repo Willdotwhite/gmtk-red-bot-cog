@@ -23,7 +23,7 @@ class JamCommands(commands.Cog):
         self.bot = bot
         self.delete_after_dt = datetime.strptime("2026-07-26 20:00:00", "%Y-%m-%d %H:%M:%S")
         self.no_itch_channels = {1520881758256627792, 1520881894328238141}
-        self.itch_triggers = {".itch.io/", "gmtk-jam-2026/rate/"}
+        self.itch_triggers = {".itch.io/", "gmtk-jam-2026/rate/", "gmtk-2025/rate/"}
 
     async def _check_permissions(self, interaction: discord.Interaction) -> bool:
         """Helper to enforce Role ID restrictions on slash commands."""
