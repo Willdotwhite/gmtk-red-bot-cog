@@ -48,8 +48,8 @@ class JamCommands(commands.Cog):
     async def on_message(self, message: discord.Message):
         # Don't bother trying any of this until after the jam deadline has passed,
         # and the inevitable wall of messages calms down
-        if datetime.now() < self.delete_after_dt:
-            return
+        # if datetime.now() < self.delete_after_dt:
+        #     return
 
         # Fail fast
         if message.author.bot or message.guild is None:
