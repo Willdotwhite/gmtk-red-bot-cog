@@ -4,6 +4,34 @@ import os
 import logging
 from discord import app_commands
 from discord.ext import commands
+import re
+
+# Pre-compiled regex for as many capture groups as possible:
+# * https://[username].itch.io/[slug]
+# * https://itch.io/jam/[slug]/rate/[id]
+# * https://itch.io/embed/[id]
+# * https://itch.io/embed-upload/[id]
+# * https://html-classic.itch.zone/html/[id]
+# Uses non-capturing groups (?:) for perf.
+_ITCH_PATTERN = re.compile(
+    r"https?://(?:"
+    r"[\w-]+\.itch\.io/[\w-]+"            # username.itch.io/slug
+    r"|itch\.io/jam/[\w-]+/rate/\d+"      # itch.io/jam/slug/rate/id
+    r"|itch\.io/embed(?:-upload)?/\d+"    # itch.io/embed/id
+    r"|html-classic\.itch\.zone/html/\d+" # Direct HTML5
+    r")"
+)
+
+def contains_itch_game_link(text: str) -> bool:
+    """
+    Returns True if text contains a direct link to an itch.io game/project
+    The \w+ and \d+ are what allow links to GMTK itch pages etc
+    """
+    # Exit early if text clearly doesn't contain itch link
+    if "itch" not in text:
+        return False
+
+    return _ITCH_PATTERN.search(text) is not None
 
 # =========================================================================
 # CONFIGURATION
@@ -21,9 +49,7 @@ class JamCommands(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.delete_after_dt = datetime.strptime("2026-07-26 20:00:00", "%Y-%m-%d %H:%M:%S")
         self.no_itch_channels = {1520881758256627792, 1520881894328238141}
-        self.itch_triggers = {".itch.io/", "gmtk-jam-2026/rate/", "gmtk-2025/rate/"}
 
     async def _check_permissions(self, interaction: discord.Interaction) -> bool:
         """Helper to enforce Role ID restrictions on slash commands."""
@@ -47,12 +73,6 @@ class JamCommands(commands.Cog):
     # =========================================================================
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
-        # Don't bother trying any of this until after the jam deadline has passed,
-        # and the inevitable wall of messages calms down
-        # if datetime.now() < self.delete_after_dt:
-        #     return
-        print(f"Message received: {message.content}")
-
         # Fail fast
         if message.author.bot or message.guild is None:
             return
@@ -65,8 +85,7 @@ class JamCommands(commands.Cog):
         msg_lower = message.content.lower().replace(" ", "")
 
         # Use generator expression to check all triggers with as little impact as possible
-        if any(trigger in msg_lower for trigger in self.itch_triggers):
-            print(f"At least one trigger met; deleting messages")
+        if contains_itch_game_link(msg_lower):
             try:
                 # Delete offending message immediately
                 await message.delete()
