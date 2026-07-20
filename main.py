@@ -130,7 +130,7 @@ class JamCommands(commands.Cog):
     @app_commands.command(name="hype", description="Print hype message/warning.")
     async def cmd_hype(self, interaction: discord.Interaction):
         if await self._check_permissions(interaction):
-            await interaction.response.send_message("**Please keep hype, countdowns, and spam to https://discord.com/channels/248204508960653312/1520881894328238141!**", ephemeral=False)
+            await interaction.response.send_message("**Please keep hype, countdowns, theme guessing and spam to https://discord.com/channels/248204508960653312/1520881894328238141!**", ephemeral=False)
 
     @app_commands.command(name="teamfinder", description="Print team finding instructions.")
     async def cmd_teamfinder(self, interaction: discord.Interaction):
