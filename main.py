@@ -59,13 +59,13 @@ class JamCommands(commands.Cog):
 
         # Allow if the user has any of the target Role IDs OR has administrator privileges
         has_role = any(role.id in ALLOWED_ROLE_IDS for role in interaction.user.roles)
-        
+
         if not has_role and not interaction.user.guild_permissions.administrator:
             # Rejections are always ephemeral so chat doesn't get cluttered
             await interaction.response.send_message("❌ You do not have the required roles to use this command.", ephemeral=True)
             return False
 
-        print(f"{interaction.user} is attempting to run {interaction.message} in {interaction.channel}")
+        print(f"{interaction.user} is attempting to run {interaction.command} in {interaction.channel}")
         return True
 
     # =========================================================================
@@ -110,7 +110,7 @@ class JamCommands(commands.Cog):
     @app_commands.command(name="ai", description="Print AI usage rules.")
     async def cmd_ai(self, interaction: discord.Interaction):
         if await self._check_permissions(interaction):
-            await interaction.response.send_message("**AI Rules**: You _must not use generative AI_ for any part of your game or itch.io page - ideas, art, code, anything. This goes against the idea of the jam, and will lead to your game being disqualified.\nFull rules are on the itch.io page: <https://itch.io/jam/gmtk-jam-2026>\n-# This is non-negotiable - arguing for it or attacking the rule will get you muted.", ephemeral=False)
+            await interaction.response.send_message("**AI Rules**: You must not use generative AI for the art or audio assets for your game or itch.io page. This will lead to your game being disqualified. Remember that you can use existing assets so if you can't draw or make music, please check the \"Tools and assets\" section on: <https://itch.io/jam/gmtk-jam-2026>", ephemeral=False)
 
     @app_commands.command(name="jaminfo", description="Print general jam information.")
     async def cmd_jaminfo(self, interaction: discord.Interaction):
@@ -211,7 +211,7 @@ class PlainDiscordBot(commands.Bot):
     async def setup_hook(self):
         # Load the commands
         await self.add_cog(JamCommands(self))
-        
+
         # Command Syncing Logic
         guild_id = os.environ.get("GUILD_ID")
         if guild_id:
@@ -232,10 +232,10 @@ class PlainDiscordBot(commands.Bot):
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format='%(asctime)s:%(levelname)s:%(name)s: %(message)s')
-    
+
     # Securely retrieve the token from the environment
     BOT_TOKEN = os.environ.get("BOT_TOKEN")
-    
+
     if not BOT_TOKEN:
         logging.critical("BOT_TOKEN environment variable is not set. Exiting.")
         exit(1)
