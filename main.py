@@ -135,7 +135,7 @@ class JamCommands(commands.Cog):
     @app_commands.command(name="teamfinder", description="Print team finding instructions.")
     async def cmd_teamfinder(self, interaction: discord.Interaction):
         if await self._check_permissions(interaction):
-            await interaction.response.send_message("**If you're looking for a team, head over to https://findyourjam.team/gmtk and https://discord.com/channels/248204508960653312/1520884363171201074!**", ephemeral=False)
+            await interaction.response.send_message("**If you're looking for a team, head over to https://findyourjam.team/gmtk and https://discord.com/channels/248204508960653312/1520883120210182276!**", ephemeral=False)
 
     @app_commands.command(name="theme", description="Print jam theme info.")
     async def cmd_theme(self, interaction: discord.Interaction):
