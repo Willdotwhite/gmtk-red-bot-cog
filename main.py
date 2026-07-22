@@ -151,8 +151,7 @@ class JamCommands(commands.Cog):
     @app_commands.command(name="theme", description="Print jam theme info.")
     async def cmd_theme(self, interaction: discord.Interaction):
         if await self._check_permissions(interaction):
-            await interaction.response.send_message("The theme for the GMTK Game Jam 2026 will be revealed via a premiere on the GMTK YouTube channel at <t:1784739600:s> (<t:1784739600:R>)!\n<https://youtu.be/2alS2m5eOVY>", ephemeral=False)
-            # await interaction.response.send_message("## **THE THEME FOR THE GMTK GAME JAM 2026 IS...**\n# *** ??? ***\n[Link to video here!]()", ephemeral=False)
+            await interaction.response.send_message("## **THE THEME FOR THE GMTK GAME JAM 2026 IS...**\n# ***COUNT DOWN***\nhttps://cdn.discordapp.com/attachments/540515596450660352/1529534119002898553/Sequence03-ezgif.com-resize.gif?ex=6a624927&is=6a60f7a7&hm=ecc1100d79511e5653a06302842c0d15bb816d90a5479ba3c8f54b7ec6a7e6eb&", ephemeral=False)
 
     @app_commands.command(name="health", description="Print health and wellness tips.")
     async def cmd_health(self, interaction: discord.Interaction):
