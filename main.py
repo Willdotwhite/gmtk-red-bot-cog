@@ -84,6 +84,17 @@ class JamCommands(commands.Cog):
         print(f"Message in channel that doesn't want links")
         msg_lower = message.content.lower().replace(" ", "")
 
+        if "gmtktimer.netlify.app" in msg_lower:
+            # Delete offending message immediately
+            await message.delete()
+
+            # Send warning to the channel and mention the user
+            # (Can't use message.reply() if the target message no longer exists)
+            await message.channel.send(
+                f"[BOT MESSAGE]: {message.author.mention} this countdown isn't correct, and we don't want misinformation about the theme announcement to confuse people.\nIf this is your website, contact @Dotwo to discuss.\n-# *(Deleting in 15s)*",
+                delete_after=15.0
+            )
+
         # Use generator expression to check all triggers with as little impact as possible
         if contains_itch_game_link(msg_lower):
             try:
