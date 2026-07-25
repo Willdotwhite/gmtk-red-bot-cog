@@ -81,7 +81,6 @@ class JamCommands(commands.Cog):
         if message.channel.id not in self.no_itch_channels:
             return
 
-        print(f"Message in channel that doesn't want links")
         msg_lower = message.content.lower().replace(" ", "")
 
         if "gmtktimer.netlify.app" in msg_lower:
@@ -92,6 +91,18 @@ class JamCommands(commands.Cog):
             # (Can't use message.reply() if the target message no longer exists)
             await message.channel.send(
                 f"[BOT MESSAGE]: {message.author.mention} this countdown isn't correct, and we don't want misinformation about the theme announcement to confuse people.\nIf this is your website, contact @Dotwo to discuss.\n-# *(Deleting in 15s)*",
+                delete_after=15.0
+            )
+
+
+        if "/roll-dice/" in msg_lower and "discord.com/channels/" in msg_lower:
+            # Delete offending message immediately
+            await message.delete()
+
+            # Send warning to the channel and mention the user
+            # (Can't use message.reply() if the target message no longer exists)
+            await message.channel.send(
+                f"[BOT MESSAGE]: {message.author.mention} Please don't spam the dice roll thing, it's noisy enough here at the best of times.\n-# *(Deleting in 15s)*",
                 delete_after=15.0
             )
 
