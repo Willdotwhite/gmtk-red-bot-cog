@@ -182,7 +182,7 @@ class JamCommands(commands.Cog):
     @app_commands.command(name="extension", description="Print extension info.")
     async def cmd_extension(self, interaction: discord.Interaction):
         if await self._check_permissions(interaction):
-            await interaction.response.send_message("**We do not announce extensions ahead of time. Get your game submitted ahead of the jam's end on <https://itch.io/jam/gmtk-jam-2026>\nWe will of course extend the jam _if_ itch.io has server issues but **DO NOT COUNT ON IT** and have your game finished and submitted within the 96 hours window.\nWe highly recommend you get a playable build submitted as early as possible. You can always update it!", ephemeral=False)
+            await interaction.response.send_message("We do not announce extensions ahead of time. Get your game submitted ahead of the jam's end on <https://itch.io/jam/gmtk-jam-2026>\nWe will of course extend the jam _if_ itch.io has server issues but **DO NOT COUNT ON IT** and have your game finished and submitted within the 96 hours window.\nWe highly recommend you get a playable build submitted as early as possible. You can always update it!", ephemeral=False)
 
     @app_commands.command(name="jamend", description="Print extension info.")
     async def cmd_jamend(self, interaction: discord.Interaction):
