@@ -192,7 +192,7 @@ class JamCommands(commands.Cog):
     @app_commands.command(name="build", description="Print game build instructions.")
     async def cmd_build(self, interaction: discord.Interaction):
         if await self._check_permissions(interaction):
-            await interaction.response.send_message("**Don't forget to plan for the time it takes to build and test your game!**\n**You can upload multiple builds of your game to itch.io and update your game submission, so make sure you submit early! You can freely change which game files are part of your submission** ***up until the jam deadline***, **even after you've submitted the game!**", ephemeral=False)
+            await interaction.response.send_message("**If you haven't uploaded a build of your game - do it ASAP!**\nYou can freely update the itch page after the deadline - images, description, all that good stuff. **The only thing you can't change after the deadline are the game files**.", ephemeral=False)
 
     @app_commands.command(name="extraextension", description="Print extra extension info.")
     async def cmd_extraextension(self, interaction: discord.Interaction):
