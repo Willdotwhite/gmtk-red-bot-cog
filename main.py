@@ -187,7 +187,7 @@ class JamCommands(commands.Cog):
     @app_commands.command(name="jamend", description="Print extension info.")
     async def cmd_jamend(self, interaction: discord.Interaction):
         if await self._check_permissions(interaction):
-            await interaction.response.send_message("**Submissions close on <t:1785085200:F> (<t:1785085200:R>).**\n**We strongly recommend you upload your game** ***before*** **the last hour! If something goes wrong in the last minutes of the jam, we will be unable assist you!**", ephemeral=False)
+            await interaction.response.send_message("**Submissions close on <t:1785085200:F> (<t:1785085200:R>).**\n**We strongly recommend you upload your game as soon as you can!** If something goes wrong in the last minutes of the jam, **we will be unable assist you!**\nYou can update your page after the deadline (images, text content, etc), but you must get your games uploaded before the deadline!", ephemeral=False)
 
     @app_commands.command(name="build", description="Print game build instructions.")
     async def cmd_build(self, interaction: discord.Interaction):
