@@ -81,6 +81,12 @@ class JamCommands(commands.Cog):
         if message.channel.id not in self.no_itch_channels:
             return
 
+        # Don't block people who are trusted
+        member = message.guild.get_member(message.author.id)
+        has_role = bool(member and any(role.id in ALLOWED_ROLE_IDS for role in member.roles))
+        if has_role:
+            return
+
         msg_lower = message.content.lower().replace(" ", "")
 
         if "gmtktimer.netlify.app" in msg_lower:
@@ -226,6 +232,7 @@ class JamCommands(commands.Cog):
 class PlainDiscordBot(commands.Bot):
     def __init__(self):
         intents = discord.Intents.default()
+        intents.members = True
         intents.message_content = True  # Required for the auto-responder
         super().__init__(command_prefix="!", intents=intents)
 
